@@ -12,7 +12,7 @@ function Navigation() {
             <NavLink to={"/search"}>
                 <FontAwesomeIcon icon={faMagnifyingGlass} className={"search-logo"} />
             </NavLink>
-            <NavLink to={"/books"} className={"center-icon"}>
+            <NavLink to={"/home"} className={"center-icon"}>
                 <img src={logo_menu} className={"footer-item logo-icon"} alt={'logo'}/>
             </NavLink>
             <NavLink to={"/favorites"}>
