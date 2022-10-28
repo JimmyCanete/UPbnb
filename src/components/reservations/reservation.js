@@ -1,22 +1,22 @@
-import "./house.scss";
+import "./reservations.scss";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faStar} from "@fortawesome/free-solid-svg-icons";
 import heartOpen from '../images/heart_open.svg'
 
 
-function House(props) {
+function Reservation(props) {
     console.log(props)
-    return <div className={"house"}>
-        <div className={"img-container"}>
+    return <div className={"reservation"}>
+        <div className={"img"}>
             <div className={"heart-icon"}>
                 <img src={heartOpen} alt={'fav-icon'} className={'fav-icon'}/>
             </div>
-            <img src={'https://m9-frontend.upskill.appx.pt/upbnb/' + props.featured_photo} alt={"casa-img"} className={'house-img'}/>
+            <img src={'https://m9-frontend.upskill.appx.pt/upbnb/' + props.featured_photo} alt={"reservation-img"} className={'reservation-img'}/>
         </div>
         <div className={"content"}>
             <div className={"informations"}>
                 <h3>{props.city}, {props.country}</h3>
-                <p>Anfitrião {props.host_type}</p>
+                <p>{props.time}</p>
                 <h5>{props.price}€ noite</h5>
             </div>
             <div className={"rating"}>
@@ -27,4 +27,4 @@ function House(props) {
     </div>;
 }
 
-export default House;
+export default Reservation;

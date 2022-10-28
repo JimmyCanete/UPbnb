@@ -1,0 +1,49 @@
+.detail {
+  .house-container {
+
+    .house-info {
+      h1 {
+        margin-bottom: 0;
+      }
+
+      .info-2 {
+        display: flex;
+        width: 75%;
+        justify-content: center;
+        margin-top: 0;
+
+        .rating {
+          display: flex;
+          align-items: center;
+
+        }
+
+        h3 {
+          margin-left: 10px;
+        }
+      }
+    }
+  }
+
+  .img-container {
+    display: flex;
+    position: relative;
+    width: 80%;
+    align-items: center;
+    margin: auto;
+
+    .house-img {
+      display: block;
+      width: 100%;
+      border-radius: 10px;
+    }
+
+    .fav-icon {
+      width: 50px;
+      position: absolute;
+      padding-top: 5px;
+      right: 20px;
+      top: 10px;
+    }
+  }
+}
