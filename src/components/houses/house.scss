@@ -70,13 +70,13 @@
     border-radius: 10px;
   }
 
-  .heart-icon{
-    position: absolute;
-    width: 70%;
-    padding-top: 5px;
-  }
   .fav-icon{
     width: 50px;
+    height: 30px;
+    position: absolute;
+    right: 0;
+    top: 10px;
+    color: white;
 
   }
 }

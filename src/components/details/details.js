@@ -16,11 +16,19 @@ function Details(props) {
     const [housePhotos, setHousePhotos] = useState(null)
     const [houseRules, setHouseRules] = useState(null)
     const [houseReviews, setHouseReviews] = useState(null)
+    const [filter, setFilter] = useState("");
+    const [page, setPage] = useState(1);
+    const [limitpages,setLimitPages] = useState(1)
 
     useEffect(() => {
-        axios.get(`https://m9-frontend.upskill.appx.pt/upbnb/casas/${houseId}`)
-            .then(response => setDetails(response.data));
-    }, [])
+        axios.get(`https://m9-frontend.upskill.appx.pt/upbnb/casas/${houseId}`, {params:{
+            page, search: filter
+        }})
+            .then(response => {
+                setLimitPages(response.data.pages);
+                setDetails(page === 1? response.data : [...details, ...response.data])
+            });
+    }, [page, filter])
    useEffect(() => {
         axios.get(`https://m9-frontend.upskill.appx.pt/upbnb/casas/${houseId}/features`)
             .then(response => setHouseRules(response.data));
@@ -38,7 +46,6 @@ function Details(props) {
             .then(response => setHouseReviews(response.data.reviews));
     }, [])
 
-    console.log(houseReviews)
 
     if (!details) return null;
     if(!houseRules) return null
@@ -49,11 +56,14 @@ function Details(props) {
     return <div className={'detail'}>
         <div className={'house-container'}>
             <div className={'house-info'}>
-                <h1>{details.title}</h1>
+                <div className={'title'}>
+                    <h1>{details.title}</h1>
+                </div>
+
                 <div className={'info-2'}>
                     <div className={"rating"}>
-                        <p>{details.rating}</p>
                         <FontAwesomeIcon icon={faStar}/>
+                        <p>{details.rating}</p>
                     </div>
                     <h3>{details.city}, {details.country}</h3>
                 </div>
@@ -65,10 +75,14 @@ function Details(props) {
                     </div>
                     <img src={'https://m9-frontend.upskill.appx.pt/upbnb/' + details.featured_photo} alt={"house-img"}
                          className={'house-img'}/>
+
+                    {/*<div className={'house-img'}
+                          style={{backgroundImage: `url('https://m9-frontend.upskill.appx.pt/upbnb/'${details.featured_photo})`}}></div>*/}
                 </div>
 
                 <div className={'price'}>
-                    <h3>{details.price} noite</h3>
+                    <h3>{details.price}€</h3>
+                    <p>noite</p>
                 </div>
                 <div className={'description'}>
                     {details.description}
@@ -91,8 +105,8 @@ function Details(props) {
                 <div className={'host-info'}>
                     <div className={'name'}>{hostInfo.name}</div>
                     <div className={'rating'}>
-                        <p>{hostInfo.rating}</p>
                         <FontAwesomeIcon icon={faStar}/>
+                        <p>{hostInfo.rating}</p>
                     </div>
                 </div>
             </div>
@@ -103,16 +117,14 @@ function Details(props) {
             <div className={'title'}>
                 <h5>Galeria</h5>
             </div>
-            <div className={'images'}>
-                <div className={'house-image'}>
+            <div className={'house-images'}>
                     <div className={"gallery"}>
                         {housePhotos.photos.slice(1).map(l => {
-                            return <div className={"photo"} key={l}>
+                            return <div className={"house-photo"} key={l}>
                                 <img src={`http://m9-frontend.upskill.appx.pt/upbnb/${l}`} alt={'house-photo'}/>
                             </div>
                         })}
                     </div>
-                </div>
             </div>
         </div>
 
@@ -122,7 +134,7 @@ function Details(props) {
             </div>
             <div className={'reviews'}>
                 {houseReviews.map(review => {
-                    return <div className={'reviews-container'}>
+                    return <div className={'container'}>
                         <div className={'profile'}>
                             <div className={'avatar'}>
                                 <img src={'https://m9-frontend.upskill.appx.pt/upbnb/' + review.photo} alt={'avatar'}/>

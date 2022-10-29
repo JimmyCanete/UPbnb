@@ -1,5 +1,6 @@
 import React from "react"
 import Reservation from "./reservation";
+import "./reservations.scss";
 import {useEffect, useState} from "react";
 import axios from "axios";
 

@@ -1,18 +1,23 @@
-import "./reservations.scss";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faStar} from "@fortawesome/free-solid-svg-icons";
-import heartOpen from '../images/heart_open.svg'
+import {useFavorites} from "../providers/favorite-context";
+import {faStar, faHeart as faHeartSolid} from "@fortawesome/free-solid-svg-icons";
+import {faHeart} from "@fortawesome/free-regular-svg-icons";
+import {Link} from "react-router-dom";
 
 
 function Reservation(props) {
-    console.log(props)
+    const {favourites, setFavourites, isFavorite, toggleFavorite} = useFavorites()
+
     return <div className={"reservation"}>
         <div className={"img"}>
-            <div className={"heart-icon"}>
-                <img src={heartOpen} alt={'fav-icon'} className={'fav-icon'}/>
-            </div>
-            <img src={'https://m9-frontend.upskill.appx.pt/upbnb/' + props.featured_photo} alt={"reservation-img"} className={'reservation-img'}/>
+            <Link to={"/house/" + props.id}>
+                <img src={'https://m9-frontend.upskill.appx.pt/upbnb/' + props.featured_photo} alt={"reservation-img"} className={'reservation-img'}/>
+            </Link>
+            <FontAwesomeIcon onClick={() => {
+                toggleFavorite(props.id)
+            }} icon={isFavorite(props.id) ? faHeartSolid : faHeart}/>
         </div>
+
         <div className={"content"}>
             <div className={"informations"}>
                 <h3>{props.city}, {props.country}</h3>
